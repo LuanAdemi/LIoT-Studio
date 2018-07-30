@@ -1,15 +1,20 @@
-# charmcity-electron
+# LIoT Studio
 
-A simple text editor built with [Electron](https://github.com/atom/electron) and [Ace](https://github.com/ajaxorg/ace)
-shown at [charmCityJS](http://charmcityjs.com).
+IDE for LIoT
 
-## Develop
+## How to run
 
-    npm install
-    npm install --g electron-prebuilt gulp
-    gulp build-dev
-    npm start
+```shell
+git clone https://github.com/LuanAdemi/LIoT-Studio/
+cd LIoT-Studio
+npm install
+npm start
+```
 
-## Package as an app
+Now download the Arduino firmware here:
 
-    gulp package
+https://github.com/LuanAdemi/LIoT-Firmware
+
+and flash it onto your Arduino...
+
+Annnnddd you're all set!
