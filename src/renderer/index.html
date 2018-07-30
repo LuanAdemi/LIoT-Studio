@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="styles.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <body>
+        <div class="container">
+            <div class="header">LIoT Studio <span id="filename"></span></div>
+            <div class="toolbar">
+                <button id="run" type="button" style="margin-right: 10px;"><object class="run-button" style="fill: white;" type="image/svg+xml" data="assets/play.svg" width="10px"></object></button>
+                <button id="open" type="button">Open</button>
+                <button id="save" type="button">Save</button>
+            <form>
+                    <select id="serialports" name="serialports">
+                            
+                          </select>
+            </form>
+            </div>
+            <div id="editor"></div>
+            <div id="status"></div>
+        </div>
+        <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../main/main.js" charset="utf-8"></script>
+        <script>
+        window.onload = checkSerial();
+        </script>
+    </body>
+    
+
+    </footer>
+</html>
