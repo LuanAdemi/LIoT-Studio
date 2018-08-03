@@ -19,7 +19,7 @@ app.on('ready', () => {
     mainWindow = new BrowserWindow({
         width: 1024,
         height: 728,
-        icon: path.join(__dirname, 'resources/icon.icns'),
+        icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
         'titleBarStyle': 'hidden-inset'
     });
     

@@ -1,4 +1,5 @@
-from sys import *
+from sys import * 
+import sys
 import serial
 import time
 from rply import LexerGenerator
@@ -72,8 +73,12 @@ class Lexer():
 
 
 def run():
+    sys.tracebacklimit = 0
     time.sleep(1)
-    data = open_file(argv[1])
+    try:
+        data = open_file(argv[1])
+    except:
+        raise Exception("Bitte oeffne eine Datei!")
     lexer = Lexer().get_lexer()
     lines = len(get_lines(argv[1]))
     script = open(argv[1])

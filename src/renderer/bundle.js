@@ -56,6 +56,7 @@
 	const ipcRenderer = __webpack_require__(3).ipcRenderer; // listen for messages from the main process
 	const exec = require('child_process').exec;
 	const serial = require('serialport');
+	const fixPath = require('fix-path');
 	// keep track of the open file and editor
 	let file, editor;
 
@@ -122,22 +123,28 @@
 	    }
 	}
 	function runScript(fileToOpen) {
+		fixPath();
+		document.getElementById("run").style.backgroundColor = "#f44242"
+		document.getElementById("run").style.boxShadow = "0 0 20px 0 #f44242"
 		document.getElementById("status").style.color = "lightgreen";
 		document.getElementById('status').innerHTML = 'Status: Running Script...'
 		var e = document.getElementById("serialports");
 		var strUser = e.options[e.selectedIndex].value;
-		exec(`python compiler/LIoT.py ${script} ${strUser}`, (error, stdout, stderr) => { 
+		exec(`python ./compiler/LIoT.py ${script} ${strUser}`, (error, stdout, stderr) => { 
 			if (error) {
 				document.getElementById("status").style.color = "red";
 				document.getElementById('status').innerHTML = `Status: Ein Fehler ist aufgetreten! \n(error: ${error})`
+				document.getElementById("run").style.backgroundColor = "#3DFD95"
+				document.getElementById("run").style.boxShadow = "0 0 20px 0 #3DFD95"
 				return;
 			  }
 			  document.getElementById("status").style.color = "lightgreen";
 			  document.getElementById('status').innerHTML = `Status: ${stdout}`
-			  
+			  document.getElementById("run").style.backgroundColor = "#3DFD95"
+			  document.getElementById("run").style.boxShadow = "0 0 20px 0 #3DFD95"
 			//   alert(`stderr: ${stderr}`);
 			});
-		
+			
 		}
 	
    
@@ -150,9 +157,9 @@
 	    const write = (file) => {
 	        fs.writeFile(file, editor.getValue(), 'utf8', (error) => {
 	            if (error) {
-	                new Notification('charmCity-electron', { body: `Could not write to ${file}: ${error}` });
+	                new Notification('LIoT-Studio', { body: `Could not write to ${file}: ${error}` });
 	            } else {
-					new Notification('charmCity-electron', { body: `Contents written to ${file}.` });
+					new Notification('LIoT-Studio', { body: `Contents written to ${file}.` });
 					script = file
 					document.getElementById('filename').innerHTML = ` | ${script}`
 	            }
@@ -183,6 +190,7 @@
 	        });
 	    });
 	}
+
 
 	/**
 	 * Binds the ace component to the editor div
@@ -19006,11 +19014,13 @@
 	            "JSON|Math|"                                                               + // Other
 	            "this|arguments|prototype|window|document"                                 , // Pseudo
 	        "keyword":
-	            "pinoff|pinon|printtolcd|input|output|sleep|const|yield|import|get|set|" +
+	            "pinon|printtolcd|input|output|sleep|const|yield|import|get|set|" +
 	            "break|case|catch|continue|default|delete|do|else|finally|for|function|" +
 	            "if|in|instanceof|new|return|switch|throw|try|typeof|let|var|while|with|debugger|" +
 	            "__parent__|__count__|escape|unescape|with|__proto__|" +
-	            "class|enum|extends|super|export|implements|private|public|interface|package|protected|static",
+				"class|enum|extends|super|export|implements|private|public|interface|package|protected|static",
+			"keyword2":
+	            "pinoff",
 	        "storage.type":
 	            "const|let|var|function",
 	        "constant.language":
@@ -20106,22 +20116,22 @@
 	exports.isDark = true;
 	exports.cssClass = "ace-tomorrow_night";
 	exports.cssText = ".ace-tomorrow_night .ace_gutter {\
-	background: #C5C5C5;\
-	color: #2d3436\
+	background: #1E2428;\
+	color: #414246;\
 	}\
 	.ace-tomorrow_night .ace_print-margin {\
 	width: 1px;\
-	background: #1D252C\
+	background: #232429;\
 	}\
 	.ace-tomorrow_night {\
-	background-color: #222f3e;\
+	background-color: #1D252C;\
 	color: #F8F8F2\
 	}\
 	.ace-tomorrow_night .ace_cursor {\
-	color: #fff\
+	color: #5EC4FF\
 	}\
 	.ace-tomorrow_night .ace_marker-layer .ace_selection {\
-	background: #1B2734\
+	background: #28323A\
 	}\
 	.ace-tomorrow_night.ace_multiselect .ace_selection.ace_start {\
 	box-shadow: 0 0 3px 0px #272822;\
@@ -20134,10 +20144,10 @@
 	border: 1px solid #49483E\
 	}\
 	.ace-tomorrow_night .ace_marker-layer .ace_active-line {\
-	background: #202020\
+	background: #28313A\
 	}\
 	.ace-tomorrow_night .ace_gutter-active-line {\
-	background-color: #fff\
+	background-color: #0C0D0F\
 	}\
 	.ace-tomorrow_night .ace_marker-layer .ace_selected-word {\
 	border: 1px solid #49483E\
@@ -20149,7 +20159,10 @@
 	.ace-tomorrow_night .ace_keyword,\
 	.ace-tomorrow_night .ace_meta.ace_tag,\
 	.ace-tomorrow_night .ace_storage {\
-	color: #F92672\
+	color: #2bff91\
+	}\
+	.ace-tomorrow_night .ace_keyword2 {\
+		color: #ff1452;\
 	}\
 	.ace-tomorrow_night .ace_punctuation,\
 	.ace-tomorrow_night .ace_punctuation.ace_tag {\
@@ -20171,7 +20184,7 @@
 	}\
 	.ace-tomorrow_night .ace_support.ace_constant,\
 	.ace-tomorrow_night .ace_support.ace_function {\
-	color: #66D9EF\
+	color: #ff386d\
 	}\
 	.ace-tomorrow_night .ace_fold {\
 	background-color: #A6E22E;\
@@ -20194,7 +20207,7 @@
 	color: #FD971F\
 	}\
 	.ace-tomorrow_night .ace_string {\
-	color: #E6DB74\
+	color: #22C7EA\
 	}\
 	.ace-tomorrow_night .ace_comment {\
 	color: #75715E\

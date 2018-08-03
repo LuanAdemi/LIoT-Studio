@@ -126,5 +126,14 @@ class Loop():
      def eval(self):
          while True:
              self.value.eval()
+
+class Read():
+     def __init__(self, value):
+        self.value = value
+
+     def eval(self):
+         while True:
+             ser.read(10)   
+        
              
          

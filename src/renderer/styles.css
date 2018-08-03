@@ -1,17 +1,15 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #2f3640;
-    font-family: 'Roboto', sans-serif;
+    background-color: #181E24;
+    font-family: 'Roboto';
+    outline: none;
 }
 
 html {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
 }
 
-body, button, .header {
-    font-family: "Century Gothic";
-}
 
 #filename {
     color: #aaa;
@@ -22,6 +20,7 @@ body, button, .header {
     text-align: center;
     padding: 10px;
     color: white;
+    background-color: #181E24;
 }
 
 .container {
@@ -32,13 +31,17 @@ body, button, .header {
 }
 
 .toolbar, #status {
-    background-color: #14171c;
+    background-color: #181E24;;
     padding: 10px;
     color: #D0D0D0;
 }
+.toolbar {
+    height: 3em;
+}
+
 
 #status {
-    height: 6em;
+    height: 5em;
     color: white;
     font-size: 20px;
     text-align: left;
@@ -48,25 +51,59 @@ body, button, .header {
 .toolbar button {
     font-size: 13px;
     color: #F0F0F0;
-    background-color: #505050;
-    border: 1px solid #101010;
-    width: 90px;
-    padding: 7px 0;
-    border-radius: 5px;
+    background-color: #00c7ec;
+    border: 0px solid #101010;
+    width: 50px;
+    height: 50px;
+    padding: 7px 7px;
+    border-radius: 100%;
+    box-shadow: 0 0 20px 0 #00c7ec;
+    margin-bottom: 2em;
+    outline: none;
+    
 }
-.toolbar select {
+select {
     font-size: 13px;
     color: #F0F0F0;
-    width: 90px;
-    padding: 7px 0;
-    border-radius: 5px;
+    width: 200px;
+    border: 0px solid #101010;
+    height: 30px;
+    -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+    background-color: #00c7ec;
+    box-shadow: 0 0 20px 0 #00c7ec;
     float: right;
+    outline: none;
+    
+}
+
+.toolbar .start {
+    background-color: #3DFD95;
+    font-size: 13px;
+    color: #F0F0F0;
+    border: 0px solid #101010;
+    width: 50px;
+    height: 50px;
+    padding: 7px 7px;
+    border-radius: 100%;
+    box-shadow: 0 0 20px 0 #3DFD95;
+    margin-bottom: 2em;
 }
 
 .toolbar button:hover {
     color: #FFF;
-    background-color: #606060;
-    border: 1px solid #202020;
+    background-color: #19A5C5;
+    box-shadow: 0 0 30px 0 #19A5C5;
+    border: 0px solid #202020;
+    cursor: pointer;
+}
+
+.toolbar .start:hover {
+    background-color: rgb(52, 214, 128);
+    color: #F0F0F0;
+    border: 0px solid #101010;
+    box-shadow: 0 0 20px 0 rgb(52, 214, 128);
     cursor: pointer;
 }
 

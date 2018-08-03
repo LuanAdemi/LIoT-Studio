@@ -5,14 +5,16 @@
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron . --dev",
-    "rebuild": "electron-rebuild -f -w serial"
-
+    "rebuild": "electron-rebuild -f -w serial",
+    "dist": "electron-builder"
   },
   "author": "Luan Ademi",
   "license": "ISC",
   "dependencies": {
+    "app-root-path": "^2.1.0",
     "brace": "^0.7.0",
     "electron-prebuilt": "^0.37.2",
+    "fix-path": "^2.1.0",
     "serialport": "^6.2.2"
   },
   "devDependencies": {
@@ -23,5 +25,12 @@
     "gulp-webpack": "^1.5.0",
     "rimraf": "^2.5.2",
     "webpack-target-electron-renderer": "^0.4.0"
+  },
+  "build": {
+    "appId": "luanademi.LIoTStudio.de",
+    "asarUnpack": "compiler/*",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
   }
 }

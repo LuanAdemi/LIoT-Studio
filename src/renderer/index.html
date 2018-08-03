@@ -3,17 +3,15 @@
     <link rel="stylesheet" href="styles.css"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <body>
+            
         <div class="container">
-            <div class="header">LIoT Studio <span id="filename"></span></div>
+            <div class="header">LIoT Studio <span id="filename"> </span></div>
+            
             <div class="toolbar">
-                <button id="run" type="button" style="margin-right: 10px;"><object class="run-button" style="fill: white;" type="image/svg+xml" data="assets/play.svg" width="10px"></object></button>
-                <button id="open" type="button">Open</button>
-                <button id="save" type="button">Save</button>
-            <form>
-                    <select id="serialports" name="serialports">
-                            
-                          </select>
-            </form>
+                <button id="run" class="start" type="button" style="margin-right: 10px;"><img src="assets/play.png" width="20px"></button>
+                <button id="open" type="button"><img src="assets/open.png" width="20px"></button>
+                <button id="save" type="button"><img src="assets/save.png" width="20px"></button>
+                <select id="serialports" name="serialports" onclick="checkSerial()"></select>
             </div>
             <div id="editor"></div>
             <div id="status"></div>
