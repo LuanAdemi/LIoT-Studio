@@ -114,3 +114,7 @@ select {
 .run-button path {
     fill: white;
 }
+
+#programstatus * {
+    padding-left: 100px;
+}

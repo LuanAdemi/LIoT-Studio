@@ -10,11 +10,21 @@ const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const path = require('path');
 const serial = require('serialport');
+const openAboutWindow = require('about-window').default;
 
 
 let mainWindow, menu, template;
 
+
+
 app.on('ready', () => {
+    let win = new BrowserWindow({
+        width: 600, 
+        height: 400, 
+        frame: false
+    });
+    win.show();
+    win.loadURL(`file://${__dirname}/../renderer/splash.html`);
     // create a browser window for the UI
     mainWindow = new BrowserWindow({
         width: 1024,
@@ -22,8 +32,9 @@ app.on('ready', () => {
         icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
         'titleBarStyle': 'hidden-inset'
     });
-    
+    mainWindow.hide()
     mainWindow.loadURL(`file://${__dirname}/../renderer/index.html`);
+    setTimeout(function() {win.hide();mainWindow.show();} , 5000)
 
     // open chrome debugger if --dev is specified
    
@@ -36,6 +47,7 @@ app.on('ready', () => {
         require('./menus/edit'),
         require('./menus/view')(mainWindow)
     ];
+    
 
     menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);

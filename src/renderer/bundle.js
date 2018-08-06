@@ -57,6 +57,7 @@
 	const exec = require('child_process').exec;
 	const serial = require('serialport');
 	const fixPath = require('fix-path');
+	const join = require('path').join;
 	// keep track of the open file and editor
 	let file, editor;
 
@@ -73,6 +74,8 @@
 	// bind ace component to the editor div
 	initAce();
 	window.onload = checkSerial();
+	document.getElementById('filepath').innerHTML = ""
+	document.getElementById('programstatus').innerHTML = `  Status: Idle`
 	function execute(command, callback) {
 		exec(command, (error, stdout, stderr) => { 
 			callback(stdout); 
@@ -82,7 +85,7 @@
 	 * Opens a file in the editor
 	 * @param {String} [fileToOpen] A specific file to open.  Omit to show the open dialog.
 	 */
-
+	
 
 	 function checkSerial(){
 		serial.list(function (err, ports) {
@@ -107,7 +110,7 @@
 	            if (error) {
 	                new Notification('charmCity-electron', { body: `Could not open ${f} : ${error}` });
 	            } else {
-	                document.getElementById('filename').innerHTML = ` | ${f}`
+	                document.getElementById('filepath').innerHTML = `${f}`
 	                app.addRecentDocument(f); // add to the native OS recent documents list in the dock
 	                // new Notification('charmCity-electron', { body: `Opened ${f}.` });
 					editor.setValue(contents);
@@ -122,23 +125,31 @@
 	        getFile().then(doOpen)
 	    }
 	}
+	// Evaluating and Executing given Code
 	function runScript(fileToOpen) {
 		fixPath();
+		document.getElementById('programstatus').style.color = "#3DFD95"
+		document.getElementById('programstatus').innerHTML = `  Status: Running...`
 		document.getElementById("run").style.backgroundColor = "#f44242"
 		document.getElementById("run").style.boxShadow = "0 0 20px 0 #f44242"
 		document.getElementById("status").style.color = "lightgreen";
 		document.getElementById('status').innerHTML = 'Status: Running Script...'
 		var e = document.getElementById("serialports");
 		var strUser = e.options[e.selectedIndex].value;
-		exec(`python ./compiler/LIoT.py ${script} ${strUser}`, (error, stdout, stderr) => { 
+		var scriptPath = join(__dirname, "compiler/LIoT.py")
+		exec(`python ${scriptPath} ${script} ${strUser}`, (error, stdout, stderr) => { 
 			if (error) {
 				document.getElementById("status").style.color = "red";
 				document.getElementById('status').innerHTML = `Status: Ein Fehler ist aufgetreten! \n(error: ${error})`
 				document.getElementById("run").style.backgroundColor = "#3DFD95"
 				document.getElementById("run").style.boxShadow = "0 0 20px 0 #3DFD95"
+				document.getElementById('programstatus').style.color = "#f44242"
+				document.getElementById('programstatus').innerHTML = `  Status: Error`
 				return;
 			  }
-			  document.getElementById("status").style.color = "lightgreen";
+			  document.getElementById('programstatus').style.color = "#3DFD95"
+			  document.getElementById('programstatus').innerHTML = `  Status: Done`
+			  document.getElementById("status").style.color = "#3DFD95";
 			  document.getElementById('status').innerHTML = `Status: ${stdout}`
 			  document.getElementById("run").style.backgroundColor = "#3DFD95"
 			  document.getElementById("run").style.boxShadow = "0 0 20px 0 #3DFD95"
