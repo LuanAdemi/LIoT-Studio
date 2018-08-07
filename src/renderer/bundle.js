@@ -65,6 +65,7 @@
 	document.querySelector('#save').addEventListener('click', () => save());
 	document.querySelector('#open').addEventListener('click', () => open());
 	document.querySelector('#run').addEventListener('click', () => runScript());
+	document.querySelector('#arrow').addEventListener('click', () => toggleConsole());
 
 	// bind functions to native menus
 	ipcRenderer.on('save', save);
@@ -74,7 +75,7 @@
 	// bind ace component to the editor div
 	initAce();
 	window.onload = checkSerial();
-	document.getElementById('filepath').innerHTML = ""
+	document.getElementById('filepath').innerHTML = "Please open a file"
 	document.getElementById('programstatus').innerHTML = `  Status: Idle`
 	function execute(command, callback) {
 		exec(command, (error, stdout, stderr) => { 
@@ -129,18 +130,26 @@
 	function runScript(fileToOpen) {
 		fixPath();
 		document.getElementById('programstatus').style.color = "#3DFD95"
-		document.getElementById('programstatus').innerHTML = `  Status: Running...`
+		document.getElementById('programstatus').innerHTML = `    Status: Running...`
 		document.getElementById("run").style.backgroundColor = "#f44242"
 		document.getElementById("run").style.boxShadow = "0 0 20px 0 #f44242"
-		document.getElementById("status").style.color = "lightgreen";
-		document.getElementById('status').innerHTML = 'Status: Running Script...'
+		if (toggled == true) {
+		document.getElementById("console").style.color = "#3DFD95";
+		document.getElementById('console').innerHTML = ' Status: Running Script...'
+		document.getElementById("consolearrow").style.color = "#3DFD95";
+		document.getElementById('consolearrow').innerHTML = '>'
+		};
 		var e = document.getElementById("serialports");
 		var strUser = e.options[e.selectedIndex].value;
 		var scriptPath = join(__dirname, "compiler/LIoT.py")
 		exec(`python ${scriptPath} ${script} ${strUser}`, (error, stdout, stderr) => { 
 			if (error) {
-				document.getElementById("status").style.color = "red";
-				document.getElementById('status').innerHTML = `Status: Ein Fehler ist aufgetreten! \n(error: ${error})`
+				if (toggled == true) {
+				document.getElementById("consolearrow").style.color = "#f44242"
+				document.getElementById('consolearrow').innerHTML = '>'
+				document.getElementById("console").style.color = "#f44242";
+				document.getElementById('console').innerHTML = ` Status: Ein Fehler ist aufgetreten! \n(error: ${error})`
+				};
 				document.getElementById("run").style.backgroundColor = "#3DFD95"
 				document.getElementById("run").style.boxShadow = "0 0 20px 0 #3DFD95"
 				document.getElementById('programstatus').style.color = "#f44242"
@@ -149,16 +158,38 @@
 			  }
 			  document.getElementById('programstatus').style.color = "#3DFD95"
 			  document.getElementById('programstatus').innerHTML = `  Status: Done`
-			  document.getElementById("status").style.color = "#3DFD95";
-			  document.getElementById('status').innerHTML = `Status: ${stdout}`
+			  document.getElementById("consolearrow").style.color = "#3DFD95";
+			  document.getElementById('consolearrow').innerHTML = '>'
+			  document.getElementById("console").style.color = "#3DFD95";
+			  document.getElementById('console').innerHTML = ` Status: ${stdout}`
+			  if (toggled == true) {
 			  document.getElementById("run").style.backgroundColor = "#3DFD95"
 			  document.getElementById("run").style.boxShadow = "0 0 20px 0 #3DFD95"
-			//   alert(`stderr: ${stderr}`);
+			  };
+			  
 			});
 			
 		}
 	
-   
+		var toggled = true;
+        function toggleConsole() {
+            
+            if (toggled == true) {
+                document.getElementById('status').style.height='10px';
+                document.getElementById('status').style.transform ='scaleY(-1)';
+                toggled = false
+				console.log(toggled);
+				document.getElementById('console').innerHTML = ""
+        }
+            else if (toggled == false) {
+                document.getElementById('status').style.height='10em';
+                document.getElementById('status').style.transform ='scaleY(1)';
+                toggled = true
+				console.log(toggled);
+				document.getElementById('console').innerHTML = ""
+        }
+            
+        }
 	
 
 	/**

@@ -41,9 +41,9 @@ html {
 
 
 #status {
-    height: 5em;
+    height: 10em;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
     text-align: left;
     background-color: #14171c;
 }

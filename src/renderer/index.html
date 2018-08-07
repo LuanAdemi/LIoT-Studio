@@ -14,10 +14,10 @@
                 <select id="serialports" name="serialports" onclick="checkSerial()"></select>
             </div>
             <div id="editor"></div>
-            <div id="status"></div>
-            <div id="footer" style="display: flex;height: 18px;background-color: #181E24;">
+            <div id="status"><a onclick="toggleConsole();" style="cursor: pointer;"><img id="arrow" src="assets/arrowup.png" width="10px" style="float: right;"></a><span id="consolearrow" style="color: white">></span><span id="console"></span></div>
+            <div id="footer" style="display: flex;height: 18px;background-color: #181E24;font-size: 15px;">
                 <div style="font-weight: 100;color: white;flex: 50%;border-right: 1px solid white;padding-left: 20px;"><img src="assets/monitor.png" width="15px" style="padding-top: 2px;"><span style="margin-top: -50px;vertical-align: top;" id="programstatus"></span></div>
-                <div id="filepath" style="font-weight: 100;color: #A7A7A7;flex: 50%;padding-left: 20px;"></div>
+                <div id="filepath" style="font-weight: 100;color: grey;flex: 50%;padding-left: 20px;font-style: italic;"></div>
 
             </div>
         </div>
@@ -25,7 +25,6 @@
         <script type="text/javascript" src="../main/main.js" charset="utf-8"></script>
         <script>
         window.onload = checkSerial();
-        
         </script>
     </body>
     

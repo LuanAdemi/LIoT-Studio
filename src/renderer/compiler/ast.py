@@ -133,7 +133,17 @@ class Read():
 
      def eval(self):
          while True:
-             ser.read(10)   
+             ser.read(10)  
+
+class IfStatement():
+      def __init__(self, expression1,expression2,program):
+        self.expression1 = expression1
+        self.expression2 = expression2
+        self.program = program
+
+      def eval(self):
+         if(self.expression1.eval() == self.expression2.eval()):
+             self.program.eval()
         
              
          

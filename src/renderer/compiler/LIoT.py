@@ -54,14 +54,12 @@ class Lexer():
         self.lexer.add('PINOFF', r'pinoff')  
         # Variable
         self.lexer.add('VAR', r'var')
-        # SETUP
-        self.lexer.add('SETUP', r'SETUP:')
-        # ENDDETUP
-        self.lexer.add("ENDSETUP", r'ENDSETUP')
-        # LOOP
-        self.lexer.add('LOOP', r'LOOP')
-        # ENDLOOP
-        self.lexer.add('ENDLOOP', r'ENDLOOP')
+        # IF
+        self.lexer.add('IF', r'if')
+        # ENDIF
+        self.lexer.add('ENDIF', r'endif')
+        # THEN
+        self.lexer.add('THEN', r'then')
         # Variable
         #self.lexer.add('GETVAR', r'\$[^\)]*')
         # Equals

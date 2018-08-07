@@ -1,13 +1,12 @@
 from rply import ParserGenerator
-from ast import Number, Sum, Sub, Print, Sleep, String, Output, PinOn, PinOff,setVar,getVar,Letter, Empty, Loop
-
+from ast import Number, Sum, Sub, Print, Sleep, String, Output, PinOn, PinOff,setVar,getVar,Letter, Empty, Loop, IfStatement
 
 class Parser():
     def __init__(self):
         self.pg = ParserGenerator(
             # A list of all token names accepted by the parser.
             ['NUMBER', 'PRINTTOLCD', 'OPEN_PAREN', 'CLOSE_PAREN',
-             'SEMI_COLON', 'SUM', 'SUB', 'STRING', 'SLEEP', 'OUTPUT', 'PINON', 'PINOFF', 'EQUAL', 'VAR','VARNAME','GETVAR','LOOP','ENDLOOP']
+             'SEMI_COLON', 'SUM', 'SUB', 'STRING', 'SLEEP', 'OUTPUT', 'PINON', 'PINOFF', 'EQUAL', 'VAR','VARNAME','GETVAR','IF','ENDIF','THEN','EQUAL']
         )
 
     def parse(self):
@@ -30,9 +29,9 @@ class Parser():
         @self.pg.production('program : VAR expression EQUAL expression SEMI_COLON')
         def var(p):
             return setVar(p[1],p[3])
-        @self.pg.production('program : LOOP program ENDLOOP')
-        def loop(p):
-            return Loop(p[1])
+        @self.pg.production('program : IF expression EQUAL expression THEN program ENDIF')
+        def ifstatement(p):
+            return IfStatement(p[1],p[3],p[5])
         
         @self.pg.production('expression : expression SUM expression')
         @self.pg.production('expression : expression SUB expression')
@@ -63,8 +62,8 @@ class Parser():
         
         @self.pg.error
         def error_handle(token):
-            raise ValueError("Ran into a %s where it wasn't expected" + token.gettokentype())
-        
+            raise ValueError("Ran into a %s where it wasn't expected" + token.gettokentype)
+
         
     def get_parser(self):
         return self.pg.build()

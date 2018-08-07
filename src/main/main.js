@@ -53,8 +53,9 @@ app.on('ready', () => {
     Menu.setApplicationMenu(menu);
     
     // Create a tray icon, because we can
-    
-    
+    mainWindow.on('closed', () => {
+       app.quit();
+    })
 });
 
 app.on('window-all-closed', () => {
